@@ -25,7 +25,6 @@ pipeline {
             }
         }
 
-        // Ketté szedtem az Initet és az Akciót, hogy tisztább legyen
         stage('Terraform Init') {
             steps {
                 dir('terraform') {
@@ -74,9 +73,7 @@ pipeline {
                 sh "aws ecs update-service --cluster serverless-cluster --service flask-service --force-new-deployment --region ${REGION}"
             }
         }
-        stages {
-        // ... itt vannak a meglévő stage-ek (Checkout, Terraform, Docker, ECS) ...
-    }
+    } // <--- ITT ZÁRUL A STAGES BLOKK
 
     // ÚJ RÉSZ: Értesítések a Pipeline futása UTÁN
     post {
@@ -91,8 +88,7 @@ pipeline {
             }
         }
         failure {
-            // Itt is egyszerűsítve
             sh "curl -X POST -H 'Content-Type: application/json' -d '{\"content\": \"❌ **HIBA!** A pipeline elbukott!\"}' ${DISCORD_WEBHOOK}"
-        }
+        } 
     }
 }
