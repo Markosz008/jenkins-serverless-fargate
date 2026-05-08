@@ -4,7 +4,7 @@
 resource "aws_wafv2_web_acl" "main" {
   name        = "serverless-waf"
   scope       = "REGIONAL" # Mivel ALB elé tesszük, REGIONAL kell (nem CloudFront)
-  description = "SQL injection védelem a Fargate apphoz"
+  description = "SQL injection protection for Fargate app"
 
   default_action {
     allow {} # Alapértelmezésben mindent átengedünk...
