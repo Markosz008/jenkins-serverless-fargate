@@ -74,5 +74,25 @@ pipeline {
                 sh "aws ecs update-service --cluster serverless-cluster --service flask-service --force-new-deployment --region ${REGION}"
             }
         }
+        stages {
+        // ... itt vannak a meglévő stage-ek (Checkout, Terraform, Docker, ECS) ...
+    }
+
+    // ÚJ RÉSZ: Értesítések a Pipeline futása UTÁN
+    post {
+        success {
+            script {
+                if (params.ACTION == 'apply') {
+                    // Közvetlenül a környezeti változót használjuk ${DISCORD_WEBHOOK} formában
+                    sh "curl -X POST -H 'Content-Type: application/json' -d '{\"content\": \"✅ **Sikeres Deploy!** Az alkalmazás él, a WAF védi!\"}' ${DISCORD_WEBHOOK}"
+                } else if (params.ACTION == 'destroy') {
+                    sh "curl -X POST -H 'Content-Type: application/json' -d '{\"content\": \"🗑️ **Destroy sikeres!** Minden AWS erőforrás lekapcsolva.\"}' ${DISCORD_WEBHOOK}"
+                }
+            }
+        }
+        failure {
+            // Itt is egyszerűsítve
+            sh "curl -X POST -H 'Content-Type: application/json' -d '{\"content\": \"❌ **HIBA!** A pipeline elbukott!\"}' ${DISCORD_WEBHOOK}"
+        }
     }
 }
