@@ -6,7 +6,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         DB_PASS               = credentials('DB_PASSWORD') // Itt tároljuk a titkos jelszót
         DOCKER_USER           = 'markosz008'
-        DOCKER_PASS           = credentials('docker-hub-id')
+        DOCKER_PASS           = credentials('fargate-docker-token')
         IMAGE_NAME            = "markosz008/flask-app:latest"
         REGION                = "eu-central-1"
     }
