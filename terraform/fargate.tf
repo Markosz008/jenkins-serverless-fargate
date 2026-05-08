@@ -23,7 +23,7 @@ resource "aws_ecs_task_definition" "app" {
         hostPort      = 80
       }]
       environment = [
-        { name = "DB_HOST", value = aws_rds_cluster.aurora_cluster.endpoint },
+        { name = "DB_HOST", value = split(":", aws_db_instance.mysql_db.endpoint)[0] },
         { name = "DB_USER", value = "admin" },
         { name = "DB_PASS", value = var.db_password },
         { name = "DB_NAME", value = "flaskdb" },
