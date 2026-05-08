@@ -15,6 +15,7 @@ pipeline {
         DOCKER_PASS           = credentials('fargate-docker-token')
         IMAGE_NAME            = "markosz008/flask-app:latest"
         REGION                = "eu-central-1"
+        DISCORD_WEBHOOK       = credentials('DISCORD_WEBHOOK')
     }
 
     stages {
