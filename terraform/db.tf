@@ -30,9 +30,9 @@ resource "aws_rds_cluster" "aurora_cluster" {
   db_subnet_group_name    = aws_db_subnet_group.aurora_subnet_group.name
   vpc_security_group_ids  = [aws_security_group.aurora_sg.id]
 
-  serverless_v2_scaling_configuration {
-    max_capacity = 1.0 # Alacsonyan tartjuk a költséget
-    min_capacity = 0.5 # Ez a minimum v2 esetén
+  scaling_configuration {
+    max_capacity = 1
+    min_capacity = 1
   }
 }
 
