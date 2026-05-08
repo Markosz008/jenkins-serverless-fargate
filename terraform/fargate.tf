@@ -25,7 +25,7 @@ resource "aws_ecs_task_definition" "app" {
       environment = [
         { name = "DB_HOST", value = aws_rds_cluster.aurora_cluster.endpoint },
         { name = "DB_USER", value = "admin" },
-        { name = "DB_PASS", value = "ValamiNagyonTitkos123" },
+        { name = "DB_PASS", value = var.db_password },
         { name = "DB_NAME", value = "flaskdb" },
         { name = "REDIS_HOST", value = "localhost" } # Mivel egy Taskban vannak, látják egymást localhoston
       ]

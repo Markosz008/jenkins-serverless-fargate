@@ -25,7 +25,7 @@ resource "aws_rds_cluster" "aurora_cluster" {
   engine_version          = "8.0.mysql_aurora.3.05.2"
   database_name           = "flaskdb"
   master_username         = "admin"
-  master_password         = "ValamiNagyonTitkos123" # Később használhatunk Secrets Manager-t
+  master_password         = var.db_password # Később használhatunk Secrets Manager-t
   skip_final_snapshot     = true
   db_subnet_group_name    = aws_db_subnet_group.aurora_subnet_group.name
   vpc_security_group_ids  = [aws_security_group.aurora_sg.id]
